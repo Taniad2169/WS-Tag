@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Design Promo Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a3b5d 0%, #0a1a2a 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+        
+        .promo-card {
+            position: relative;
+            width: 380px;
+            height: 220px;
+            background: linear-gradient(135deg, #6cd7e0 0%, #1f556e 100%);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.5),
+                0 5px 15px rgba(0, 0, 0, 0.3),
+                inset 0 0 15px rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .promo-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.6),
+                0 15px 30px rgba(0, 0, 0, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+        }
+        
+        .card-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            line-height: 1.3;
+        }
+        
+        .card-subtitle {
+            font-size: 0.95rem;
+            color: white;
+            font-weight: 500;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            line-height: 1.4;
+            margin-bottom: 5px;
+        }
+        
+        .award-text {
+            font-size: 0.85rem;
+            color: #ffeb3b;
+            font-weight: 600;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .emoji-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .emoji {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.4));
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transform-style: preserve-3d;
+            perspective: 500px;
+        }
+        
+        /* Emoji animation sequence - coming to center */
+        .laptop {
+            top: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flyToCenter 3s forwards;
+            animation-delay: 0s;
+        }
+        
+        .chart {
+            top: 50%;
+            right: -20%;
+            transform: translateY(-50%);
+            animation: flyToCenter 3s forwards;
+            animation-delay: 3s;
+        }
+        
+        .target {
+            bottom: -20%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flyToCenter 3s forwards;
+            animation-delay: 6s;
+        }
+        
+        .globe {
+            top: 50%;
+            left: -20%;
+            transform: translateY(-50%);
+            animation: flyToCenter 3s forwards;
+            animation-delay: 9s;
+        }
+        
+        .video {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulseInCenter 3s forwards;
+            animation-delay: 12s;
+        }
+        
+        @keyframes flyToCenter {
+            0% {
+                transform: translate(var(--startX, 0), var(--startY, 0)) scale(0.5) rotateY(0deg);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.5) rotateY(180deg);
+                opacity: 1;
+                text-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--endX, 0), var(--endY, 0)) scale(0.5) rotateY(360deg);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulseInCenter {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.8);
+                opacity: 1;
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+        }
+        
+        .shine-effect {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom right,
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0) 40%,
+                rgba(255, 255, 255, 0.1) 50%,
+                rgba(255, 255, 255, 0) 60%,
+                rgba(255, 255, 255, 0) 100%
+            );
+            transform: rotate(30deg);
+            z-index: 1;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+        
+        .promo-card:hover .shine-effect {
+            opacity: 1;
+            transform: rotate(30deg) translate(20%, 20%);
+        }
+        
+        .lock-footer {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            z-index: 3;
+        }
+        
+        .lock-icon {
+            font-size: 1.5rem;
+            animation: pulse 2s infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="promo-card" onclick="window.open('https://taniad2169.github.io/WebSwan-Brand-Hub/', '_blank')">
+        <div class="emoji-container">
+            <div class="emoji laptop" style="--startX: -50%; --startY: -100%; --endX: -50%; --endY: 100%;">💻</div>
+            <div class="emoji chart" style="--startX: 100%; --startY: -50%; --endX: -150%; --endY: -50%;">📊</div>
+            <div class="emoji target" style="--startX: -50%; --startY: 100%; --endX: -50%; --endY: -100%;">🎯</div>
+            <div class="emoji globe" style="--startX: -100%; --startY: -50%; --endX: 50%; --endY: -50%;">🌐</div>
+            <div class="emoji video">📹</div>
+        </div>
+        
+        <div class="shine-effect"></div>
+        
+        <div class="card-content">
+            <div>
+                <h2 class="card-title">Certified Web Developer 💻 + SEO & Digital Marketing 📈</h2>
+                <p class="card-subtitle">Ad Campaigns & Videos 🎥 | 5-Star Rating ⭐ | Click the lock to View My Reviews, Gallery, Website & More!</p>
+                <div class="award-text">
+                    🏆 Best Web Designer Award Winner 2024
+                </div>
+            </div>
+        </div>
+        
+        <div class="lock-footer">
+            <div class="lock-icon">🔓</div>
+        </div>
+    </div>
+
+    <script>
+        // Restart animation when the last emoji finishes
+        const emojis = document.querySelectorAll('.emoji');
+        const lastEmoji = emojis[emojis.length - 1];
+        
+        lastEmoji.addEventListener('animationend', () => {
+            // Wait a moment before restarting
+            setTimeout(() => {
+                emojis.forEach(emoji => {
+                    emoji.style.animation = 'none';
+                    void emoji.offsetWidth; // Trigger reflow
+                    emoji.style.animation = null;
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
