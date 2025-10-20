@@ -5,23 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Design Promo Card</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Reset and isolation styles */
+        .ws-promo-isolated {
+            all: initial;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+        }
+        
+        .ws-promo-isolated * {
+            all: unset;
             box-sizing: border-box;
         }
         
-        body {
+        /* Container that won't interfere with your layout */
+        .ws-promo-container {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a3b5d 0%, #0a1a2a 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
+            width: 100%;
+            margin: 20px 0;
+            padding: 0;
+            isolation: isolate;
+            z-index: 9999;
         }
         
-        .promo-card {
+        /* Promo card styles */
+        .ws-promo-card {
             position: relative;
             width: 380px;
             height: 220px;
@@ -37,9 +51,10 @@
             transform-style: preserve-3d;
             perspective: 1000px;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .promo-card:hover {
+        .ws-promo-card:hover {
             transform: translateY(-10px) rotateX(5deg);
             box-shadow: 
                 0 25px 50px rgba(0, 0, 0, 0.6),
@@ -47,7 +62,7 @@
                 inset 0 0 20px rgba(255, 255, 255, 0.3);
         }
         
-        .card-content {
+        .ws-card-content {
             position: relative;
             z-index: 2;
             height: 100%;
@@ -56,25 +71,27 @@
             justify-content: space-between;
         }
         
-        .card-title {
+        .ws-card-title {
             font-size: 1.4rem;
             font-weight: 700;
             color: white;
             margin-bottom: 10px;
             text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             line-height: 1.3;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .card-subtitle {
+        .ws-card-subtitle {
             font-size: 0.95rem;
             color: white;
             font-weight: 500;
             text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
             line-height: 1.4;
             margin-bottom: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .award-text {
+        .ws-award-text {
             font-size: 0.85rem;
             color: #ffeb3b;
             font-weight: 600;
@@ -82,9 +99,10 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .emoji-container {
+        .ws-emoji-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -94,7 +112,7 @@
             z-index: 1;
         }
         
-        .emoji {
+        .ws-emoji {
             position: absolute;
             font-size: 3rem;
             opacity: 0;
@@ -104,48 +122,48 @@
             perspective: 500px;
         }
         
-        /* Emoji animation sequence - coming to center */
-        .laptop {
+        /* Emoji animation sequence */
+        .ws-laptop {
             top: -20%;
             left: 50%;
             transform: translateX(-50%);
-            animation: flyToCenter 3s forwards;
+            animation: ws-flyToCenter 3s forwards;
             animation-delay: 0s;
         }
         
-        .chart {
+        .ws-chart {
             top: 50%;
             right: -20%;
             transform: translateY(-50%);
-            animation: flyToCenter 3s forwards;
+            animation: ws-flyToCenter 3s forwards;
             animation-delay: 3s;
         }
         
-        .target {
+        .ws-target {
             bottom: -20%;
             left: 50%;
             transform: translateX(-50%);
-            animation: flyToCenter 3s forwards;
+            animation: ws-flyToCenter 3s forwards;
             animation-delay: 6s;
         }
         
-        .globe {
+        .ws-globe {
             top: 50%;
             left: -20%;
             transform: translateY(-50%);
-            animation: flyToCenter 3s forwards;
+            animation: ws-flyToCenter 3s forwards;
             animation-delay: 9s;
         }
         
-        .video {
+        .ws-video {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: pulseInCenter 3s forwards;
+            animation: ws-pulseInCenter 3s forwards;
             animation-delay: 12s;
         }
         
-        @keyframes flyToCenter {
+        @keyframes ws-flyToCenter {
             0% {
                 transform: translate(var(--startX, 0), var(--startY, 0)) scale(0.5) rotateY(0deg);
                 opacity: 0;
@@ -167,7 +185,7 @@
             }
         }
         
-        @keyframes pulseInCenter {
+        @keyframes ws-pulseInCenter {
             0% {
                 transform: translate(-50%, -50%) scale(0.5);
                 opacity: 0;
@@ -189,7 +207,7 @@
             }
         }
         
-        .shine-effect {
+        .ws-shine-effect {
             position: absolute;
             top: -50%;
             left: -50%;
@@ -209,25 +227,25 @@
             opacity: 0;
         }
         
-        .promo-card:hover .shine-effect {
+        .ws-promo-card:hover .ws-shine-effect {
             opacity: 1;
             transform: rotate(30deg) translate(20%, 20%);
         }
         
-        .lock-footer {
+        .ws-lock-footer {
             position: absolute;
             bottom: 15px;
             right: 15px;
             z-index: 3;
         }
         
-        .lock-icon {
+        .ws-lock-icon {
             font-size: 1.5rem;
-            animation: pulse 2s infinite;
+            animation: ws-pulse 2s infinite;
             filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
         
-        @keyframes pulse {
+        @keyframes ws-pulse {
             0%, 100% {
                 transform: scale(1);
             }
@@ -238,47 +256,94 @@
     </style>
 </head>
 <body>
-    <div class="promo-card" onclick="window.open('https://taniad2169.github.io/WebSwan-Brand-Hub/', '_blank')">
-        <div class="emoji-container">
-            <div class="emoji laptop" style="--startX: -50%; --startY: -100%; --endX: -50%; --endY: 100%;">💻</div>
-            <div class="emoji chart" style="--startX: 100%; --startY: -50%; --endX: -150%; --endY: -50%;">📊</div>
-            <div class="emoji target" style="--startX: -50%; --startY: 100%; --endX: -50%; --endY: -100%;">🎯</div>
-            <div class="emoji globe" style="--startX: -100%; --startY: -50%; --endX: 50%; --endY: -50%;">🌐</div>
-            <div class="emoji video">📹</div>
-        </div>
-        
-        <div class="shine-effect"></div>
-        
-        <div class="card-content">
-            <div>
-                <h2 class="card-title">Certified Web Developer 💻 + SEO & Digital Marketing 📈</h2>
-                <p class="card-subtitle">Ad Campaigns & Videos 🎥 | 5-Star Rating ⭐ | Click the lock to View My Reviews, Gallery, Website & More!</p>
-                <div class="award-text">
-                    🏆 Best Web Designer Award Winner 2024
+    <!-- This container isolates the promo card from your website's layout -->
+    <div class="ws-promo-isolated">
+        <div class="ws-promo-container">
+            <div class="ws-promo-card" id="wsPromoCard">
+                <div class="ws-emoji-container">
+                    <div class="ws-emoji ws-laptop" style="--startX: -50%; --startY: -100%; --endX: -50%; --endY: 100%;">💻</div>
+                    <div class="ws-emoji ws-chart" style="--startX: 100%; --startY: -50%; --endX: -150%; --endY: -50%;">📊</div>
+                    <div class="ws-emoji ws-target" style="--startX: -50%; --startY: 100%; --endX: -50%; --endY: -100%;">🎯</div>
+                    <div class="ws-emoji ws-globe" style="--startX: -100%; --startY: -50%; --endX: 50%; --endY: -50%;">🌐</div>
+                    <div class="ws-emoji ws-video">📹</div>
+                </div>
+                
+                <div class="ws-shine-effect"></div>
+                
+                <div class="ws-card-content">
+                    <div>
+                        <h2 class="ws-card-title">Certified Web Developer 💻 + SEO & Digital Marketing 📈</h2>
+                        <p class="ws-card-subtitle">Ad Campaigns & Videos 🎥 | 5-Star Rating ⭐ | Click the lock to View My Reviews, Gallery, Website & More! The WebSwan | Your Path to a Stronger Online Presence (415)877-0687</p>
+                        <div class="ws-award-text">
+                            🏆 Best Web Designer Award Winner 2024
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ws-lock-footer">
+                    <div class="ws-lock-icon">🔓</div>
                 </div>
             </div>
-        </div>
-        
-        <div class="lock-footer">
-            <div class="lock-icon">🔓</div>
         </div>
     </div>
 
     <script>
-        // Restart animation when the last emoji finishes
-        const emojis = document.querySelectorAll('.emoji');
-        const lastEmoji = emojis[emojis.length - 1];
-        
-        lastEmoji.addEventListener('animationend', () => {
-            // Wait a moment before restarting
-            setTimeout(() => {
-                emojis.forEach(emoji => {
-                    emoji.style.animation = 'none';
-                    void emoji.offsetWidth; // Trigger reflow
-                    emoji.style.animation = null;
+        // Isolated script that won't conflict with your website
+        (function() {
+            'use strict';
+            
+            // Simple and reliable navigation function
+            function navigateToBrandHub() {
+                // Use top window to ensure we navigate the main page, not an iframe
+                const topWindow = window.top || window;
+                
+                // Try multiple navigation methods for maximum compatibility
+                try {
+                    // Method 1: Direct navigation (most reliable)
+                    topWindow.location.href = 'https://webswandigitalsolutions.com/#brandhub';
+                } catch (error) {
+                    // Method 2: Fallback - assign to location
+                    try {
+                        topWindow.location.assign('https://webswandigitalsolutions.com/#brandhub');
+                    } catch (e) {
+                        // Method 3: Last resort - replace
+                        topWindow.location.replace('https://webswandigitalsolutions.com/#brandhub');
+                    }
+                }
+            }
+            
+            // Add click event listener to the promo card
+            const promoCard = document.getElementById('wsPromoCard');
+            if (promoCard) {
+                promoCard.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    navigateToBrandHub();
                 });
-            }, 1000);
-        });
+                
+                // Also add touch support for mobile devices
+                promoCard.addEventListener('touchend', function(e) {
+                    e.preventDefault();
+                    navigateToBrandHub();
+                });
+            }
+            
+            // Restart animation when the last emoji finishes
+            const emojis = document.querySelectorAll('.ws-emoji');
+            const lastEmoji = emojis[emojis.length - 1];
+            
+            if (lastEmoji) {
+                lastEmoji.addEventListener('animationend', () => {
+                    // Wait a moment before restarting
+                    setTimeout(() => {
+                        emojis.forEach(emoji => {
+                            emoji.style.animation = 'none';
+                            void emoji.offsetWidth; // Trigger reflow
+                            emoji.style.animation = null;
+                        });
+                    }, 1000);
+                });
+            }
+        })();
     </script>
 </body>
 </html>
