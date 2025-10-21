@@ -38,7 +38,7 @@
         .ws-promo-card {
             position: relative;
             width: 380px;
-            height: 220px;
+            height: 240px; /* Increased height to accommodate button */
             background: linear-gradient(135deg, #6cd7e0 0%, #1f556e 100%);
             border-radius: 20px;
             padding: 25px;
@@ -100,6 +100,33 @@
             align-items: center;
             gap: 5px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-bottom: 10px;
+        }
+        
+        /* New Website Button Styles */
+        .ws-website-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-top: 5px;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .ws-website-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #ff8e8e 0%, #ff7a4d 100%);
         }
         
         .ws-emoji-container {
@@ -239,6 +266,20 @@
             z-index: 3;
         }
         
+        .ws-lock-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .ws-lock-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+        
         .ws-lock-icon {
             font-size: 1.5rem;
             animation: ws-pulse 2s infinite;
@@ -277,11 +318,17 @@
                         <div class="ws-award-text">
                             🏆 Best Web Designer Award Winner 2024
                         </div>
+                        <!-- NEW WEBSITE BUTTON -->
+                        <a href="https://thewebswan.com" target="_blank" class="ws-website-button" onclick="event.stopPropagation()">
+                            Click here to view my website →
+                        </a>
                     </div>
                 </div>
                 
                 <div class="ws-lock-footer">
-                    <div class="ws-lock-icon">🔓</div>
+                    <a href="https://webswandigitalsolutions.com/#brandhub" target="_blank" class="ws-lock-button" onclick="event.stopPropagation()">
+                        <div class="ws-lock-icon">🔓</div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -316,14 +363,19 @@
             const promoCard = document.getElementById('wsPromoCard');
             if (promoCard) {
                 promoCard.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    navigateToBrandHub();
+                    // Don't navigate if the button was clicked (handled by button's own link)
+                    if (!e.target.closest('.ws-website-button') && !e.target.closest('.ws-lock-button')) {
+                        e.preventDefault();
+                        navigateToBrandHub();
+                    }
                 });
                 
                 // Also add touch support for mobile devices
                 promoCard.addEventListener('touchend', function(e) {
-                    e.preventDefault();
-                    navigateToBrandHub();
+                    if (!e.target.closest('.ws-website-button') && !e.target.closest('.ws-lock-button')) {
+                        e.preventDefault();
+                        navigateToBrandHub();
+                    }
                 });
             }
             
